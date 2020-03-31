@@ -1,6 +1,4 @@
 // CRUD (create, read, update, and delete) operations. Allows for persistent storage
-
-
 const NotesService = {
   getAllNotes(knex) {
     return knex.select('*').from('notes')

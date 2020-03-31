@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const FoldersService = require('./folders-service')
-const notesRouter = express.Router()
+const foldersRouter = express.Router()
 const jsonParser = express.json()
 
 const serializeFolders = folder => ({
@@ -18,7 +18,7 @@ foldersRouter
     const knexInstance = req.app.get('db')
     FoldersService.getAllFolders(knexInstance)
       .then(folders => {
-        res.json(notes.map(serializeFolder))
+        res.json(folders.map(folder => serializeFolders(folder)))
       })
       .catch(next)
   })
@@ -40,11 +40,11 @@ foldersRouter
       req.app.get('db'),
       newFolder
     )
-      .then(note => {
+      .then(folder => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${folder.folderId}`))
-          .json(serializeFolder(folder))
+          .json(serializeFolders(folder))
       })
       .catch(next)
   })
@@ -69,7 +69,7 @@ foldersRouter
       .catch(next)
   })
   .get((req, res, next) => {
-    res.json(serializeFolder(res.folder))
+    res.json(serializeFolders(res.folder))
   })
   .delete((req, res, next) => {
     FoldersService.deleteFolder(

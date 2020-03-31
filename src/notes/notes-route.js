@@ -9,7 +9,7 @@ const serializeNotes = note => ({
   id: note.id,
   title: xss(note.title),
   modified: note.modified,
-  content: xss(note.content)
+  content: xss(note.content),
   folderId: note.folderId
 })
 
@@ -19,7 +19,7 @@ notesRouter
     const knexInstance = req.app.get('db')
     NotesService.getAllNotes(knexInstance)
       .then(notes => {
-        res.json(notes.map(serializeNote))
+        res.json(notes.map(note => serializeNotes(note)))
       })
       .catch(next)
   })
@@ -46,7 +46,7 @@ notesRouter
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${note.id}`))
-          .json(serializeNote(note))
+          .json(serializeNotes(note))
       })
       .catch(next)
   })
@@ -70,7 +70,7 @@ notesRouter
       .catch(next)
   })
   .get((req, res, next) => {
-    res.json(serializeNote(res.note))
+    res.json(serializeNotes(res.note))
   })
   .delete((req, res, next) => {
     NotesService.deleteNote(
