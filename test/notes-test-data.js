@@ -8,21 +8,21 @@ function makeNotesArray() {
       title: 'Dogs',
       content: 'content',
       modified: 2019-01-03T00:00:00.000Z,
-      folderId: 1
+      folderid: 1
     },
     {
       id: 2,
       title: 'Cats',
       content: 'content',
       modified: 2018-08-15T23:00:00.000Z,
-      folderId: 2
+      folderid: 2
     },
     {
       id: 3,
       title: 'Pigs',
       content: 'content',
       modified: 2018-03-01T00:00:00.000Z,
-      folderId: 3
+      folderid: 3
     },
   ]
 }

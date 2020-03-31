@@ -50,7 +50,7 @@ describe('Folders Endpoints', () => {
     it(`responds with 401 Unauthorized for DELETE /api/folders/:folder_id`, () => {
       const aFolder = testFolders[1]
       return supertest(app)
-        .delete(`/api/notes/${aFolder.folder_id}`) //folderId? id?
+        .delete(`/api/notes/${aFolder.folder_id}`) //folderid? id?
         .expect(401, { error: 'Unauthorized request' })
     })
   })
@@ -99,7 +99,7 @@ describe('Folders Endpoints', () => {
           .expect(200)
           .expect(res => {
             expect(res.body[0].title).to.eql(expectedFolder.title)
-            // add folderId or count?
+            // add folderid or count?
           })
       })
     })
@@ -127,10 +127,10 @@ describe('Folders Endpoints', () => {
       })
 
       it('responds with 200 and the specified folder', () => {
-        const folderId = 2
-        const expectedFolder = testFolders[folderId - 1]
+        const folderid = 2
+        const expectedFolder = testFolders[folderid - 1]
         return supertest(app)
-          .get(`/api/folders/${folderId}`)
+          .get(`/api/folders/${folderid}`)
           .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
           .expect(200, expectedFolder)
       })
@@ -172,9 +172,9 @@ describe('Folders Endpoints', () => {
   describe.only(`PATCH /api/folders/:folder_id`, () => {
     context(`Given no folders`, () => {
       it(`responds with 404`, () => {
-        const folderId = 123456
+        const folderid = 123456
         return supertest(app)
-          .patch(`/api/folders/${folderId}`)
+          .patch(`/api/folders/${folderid}`)
           .expect(404, { error: { message: `Folder with that id does not exist` } })
         })
     })
@@ -210,7 +210,7 @@ describe('Folders Endpoints', () => {
     it(`responds with 400 missing 'title' if not supplied`, () => {
       const newFolderMissingTitle = {
         // title: 'test-title',
-        count: 4, //do I include count? or folderId?
+        count: 4, //do I include count? or folderid?
       }
       return supertest(app)
         .post(`/api/folders`)
@@ -230,13 +230,13 @@ describe('Folders Endpoints', () => {
         .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
         .expect(201)
         .expect(res => {
-          expect(res.body).to.have.property('folderId')
+          expect(res.body).to.have.property('folderid')
           expect(res.body.title).to.eql(newFolder.title)
           expect(res.body.count).to.eql(newFolder.count)
         })
         .then(res =>
           supertest(app)
-            .get(`/api/folders/${res.body.folderId}`)
+            .get(`/api/folders/${res.body.folderid}`)
             .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
             .expect(res.body)
         )

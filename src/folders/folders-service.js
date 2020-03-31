@@ -15,23 +15,23 @@ const FoldersService = {
       })
   },
 
-  getById(knex, folderId) {
+  getById(knex, folderid) {
     return knex
       .from('folders')
       .select('*')
-      .where('folderId', folderId)
+      .where('folderid', folderid)
       .first()
   },
 
-  deleteNote(knex, folderId) {
+  deleteNote(knex, folderid) {
     return knex('folders')
-      .where({ folderId })
+      .where({ folderid })
       .delete()
   },
 
-  updateFolder(knex, folderId, newFoldersFields) {
+  updateFolder(knex, folderid, newFoldersFields) {
     return knex('folders')
-      .where({ folderId })
+      .where({ folderid })
       .update(newFoldersFields)
   },
 }

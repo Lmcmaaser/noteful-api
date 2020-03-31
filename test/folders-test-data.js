@@ -4,15 +4,15 @@
 function makeFoldersArray() {
   return [
     {
-      folderId: 1,
+      folderid: 1,
       title: "Important"
     },
     {
-      folderId: "2",
+      folderid: "2",
       title: "Super"
     },
     {
-      folderId: "3",
+      folderid: "3",
       title: "Spangley"
     },
   ]
@@ -20,7 +20,7 @@ function makeFoldersArray() {
 
 function makeMaliciousFolder() {
   const maliciousFolder = {
-    folderId: 911,
+    folderid: 911,
     title: 'Naughty naughty very naughty <script>alert("xss");</script>',
   }
   const expectedFolder = {

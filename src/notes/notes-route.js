@@ -10,7 +10,7 @@ const serializeNotes = note => ({
   title: xss(note.title),
   modified: note.modified,
   content: xss(note.content),
-  folderId: note.folderId
+  folderid: note.folderid
 })
 
 notesRouter
@@ -24,7 +24,7 @@ notesRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, content, folderId } = req.body
+    const { title, content, folderid } = req.body
     const newNote = { title, content }
 
     for (const [key, value] of Object.entries(newNote)) {
@@ -37,7 +37,7 @@ notesRouter
 
     newNote.title = title;
     newNote.content = content;
-    newNote.folderId = folderId
+    newNote.folderid = folderid
     NotesService.insertNote(
       req.app.get('db'),
       newNote
@@ -56,7 +56,7 @@ notesRouter
   .all((req, res, next) => {
     NotesService.getById(
       req.app.get('db'),
-      req.params.note_id
+      req.params.id
     )
       .then(note => {
         if (!note) {
@@ -75,7 +75,7 @@ notesRouter
   .delete((req, res, next) => {
     NotesService.deleteNote(
       req.app.get('db'),
-      req.params.note_id
+      req.params.id
     )
       .then(numRowsAffected => {
         res.status(204).end()
@@ -96,7 +96,7 @@ notesRouter
 
     NotesService.updateNote(
       req.app.get('db'),
-      req.params.note_id,
+      req.params.id,
       noteToUpdate
     )
       .then(numRowsAffected => {
