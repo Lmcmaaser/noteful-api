@@ -7,7 +7,8 @@ const supertest = require('supertest');
 
 describe('Folders Endpoints', function() {
   let db
-
+  const token = `bearer ` + process.env.API_TOKEN;
+  
   before('make knex instance', () => {
     db = knex({
       client: 'pg',
@@ -27,6 +28,7 @@ describe('Folders Endpoints', function() {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
           .get('/folders')
+          .set('Authorization', token)
           .expect(200, [])
       })
     })
@@ -42,6 +44,7 @@ describe('Folders Endpoints', function() {
       it('responds with 200 and all of the folders', () => {
         return supertest(app)
           .get('/folders')
+          .set('Authorization', token)
           .expect(200, testFolders)
       })
     })
@@ -53,6 +56,7 @@ describe('Folders Endpoints', function() {
         const folderId = 123456
         return supertest(app)
           .get(`/folders/${folderId}`)
+          .set('Authorization', token)
           .expect(404, { error: { message: `folder doesn't exist` } })
         })
     })
@@ -71,6 +75,7 @@ describe('Folders Endpoints', function() {
         const expectedFolder = testFolders[folderId - 1]
         return supertest(app)
           .get(`/folders/${folderId}`)
+          .set('Authorization', token)
           .expect(200, expectedFolder)
       })
     })

@@ -7,6 +7,7 @@ const supertest = require('supertest');
 
 describe('Notes Endpoints', function() {
   let db
+  const token = `bearer ` + process.env.API_TOKEN;
 
   before('make knex instance', () => {
     db = knex({
@@ -27,6 +28,7 @@ describe('Notes Endpoints', function() {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
           .get('/notes')
+          .set('Authorization', token)
           .expect(200, [])
       })
     })
@@ -42,6 +44,7 @@ describe('Notes Endpoints', function() {
       it('responds with 200 and all of the notes', () => {
         return supertest(app)
           .get('/notes')
+          .set('Authorization', token)
           .expect(200, testNotes)
       })
     })
@@ -53,6 +56,7 @@ describe('Notes Endpoints', function() {
         const noteId = 123456
         return supertest(app)
           .get(`/notes/${noteId}`)
+          .set('Authorization', token)
           .expect(404, { error: { message: `Note doesn't exist` } })
         })
     })
@@ -71,6 +75,7 @@ describe('Notes Endpoints', function() {
         const expectedNote = testNotes[noteId - 1]
         return supertest(app)
           .get(`/notes/${noteId}`)
+          .set('Authorization', token)
           .expect(200, expectedNote)
       })
     })
