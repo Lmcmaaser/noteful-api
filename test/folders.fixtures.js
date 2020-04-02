@@ -18,7 +18,7 @@ function makeFoldersArray() {
   ]
 }
 
-function makeMaliciousFolder() {
+/* function makeMaliciousFolder() {
   const maliciousFolder = {
     folderid: 911,
     title: 'Naughty naughty very naughty <script>alert("xss");</script>',
@@ -31,9 +31,9 @@ function makeMaliciousFolder() {
     maliciousFolder,
     expectedFolder,
   }
-}
+}*/
 
 module.exports = {
   makeFoldersArray,
-  makeMaliciousFolder,
+  //makeMaliciousFolder,
 }

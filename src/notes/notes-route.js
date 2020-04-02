@@ -4,6 +4,7 @@ const xss = require('xss')
 const NotesService = require('./notes-service')
 const notesRouter = express.Router()
 const jsonParser = express.json()
+const logger = require('../logger')
 
 const serializeNotes = note => ({
   id: note.id,
@@ -54,17 +55,19 @@ notesRouter
 notesRouter
   .route('/:note_id')
   .all((req, res, next) => {
+    // const { id } = req.params
     NotesService.getById(
       req.app.get('db'),
-      req.params.id
+      req.params.note_id
     )
       .then(note => {
         if (!note) {
+          logger.error(`Note with id ${note_id} not found.`)
           return res.status(404).json({
             error: { message: `Note does not exist.` }
           })
         }
-        res.note = notes
+        res.note = note
         next()
       })
       .catch(next)
@@ -75,7 +78,7 @@ notesRouter
   .delete((req, res, next) => {
     NotesService.deleteNote(
       req.app.get('db'),
-      req.params.id
+      req.params.note_id //or const { id } = req.params?
     )
       .then(numRowsAffected => {
         res.status(204).end()
@@ -96,7 +99,7 @@ notesRouter
 
     NotesService.updateNote(
       req.app.get('db'),
-      req.params.id,
+      req.params.note_id,
       noteToUpdate
     )
       .then(numRowsAffected => {

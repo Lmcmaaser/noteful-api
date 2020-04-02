@@ -7,3 +7,4 @@ CREATE TABLE folders (
 ALTER TABLE notes
   ADD COLUMN
     folderid INTEGER REFERENCES folders(folderid) NOT NULL;
+    -- ON DELETE SET NULL;

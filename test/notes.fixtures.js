@@ -6,33 +6,46 @@ function makeNotesArray() {
     {
       id: 1,
       title: 'Dogs',
-      content: 'content',
-      modified: 2019-01-03T00:00:00.000Z,
-      folderid: 1
+      modified:'2019-01-03T00:00:00.000Z',
+      content: 'content'
     },
     {
       id: 2,
       title: 'Cats',
-      content: 'content',
-      modified: 2018-08-15T23:00:00.000Z,
-      folderid: 2
+      modified:'2018-08-15T23:00:00.000Z',
+      content: 'content'
     },
     {
       id: 3,
       title: 'Pigs',
-      content: 'content',
-      modified: 2018-03-01T00:00:00.000Z,
-      folderid: 3
+      modified:'2018-03-01T00:00:00.000Z',
+      content: 'content'
     },
-  ]
+    {
+      id: 4,
+      title: 'Birds',
+      modified:'2019-01-04T00:00:00.000Z',
+      content: 'content'
+    },
+    {
+      id: 5,
+      title: 'Bears',
+      modified:'2018-07-12T23:00:00.000Z',
+      content: 'content'
+    },
+  ];
 }
 
-function makeMaliciousNote() {
+module.exports = {
+  makeNotesArray,
+}
+
+/* function makeMaliciousNote() {
   const maliciousNote = {
     id: 911,
     title: 'Naughty naughty very naughty <script>alert("xss");</script>',
     content: 'bad',
-    rating: 2018-03-01T00:00:00.000Z,
+    rating: '2018-03-01T00:00:00.000Z',
   }
   const expectedNote = {
     ...maliciousNote,
@@ -43,9 +56,9 @@ function makeMaliciousNote() {
     maliciousNote,
     expectedNote,
   }
-}
+}*/
 
 module.exports = {
   makeNotesArray,
-  makeMaliciousNote,
+  //makeMaliciousNote,
 }
