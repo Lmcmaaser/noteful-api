@@ -20,7 +20,6 @@ describe('Notes Endpoints', function() {
   after('disconnect from db', () => db.destroy())
 
   before('clean the table', () => db('notes').truncate())
-
   afterEach('cleanup', () => db('notes').truncate())
 
   describe(`GET /notes`, () => {

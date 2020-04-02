@@ -8,7 +8,7 @@ const supertest = require('supertest');
 describe('Folders Endpoints', function() {
   let db
   const token = `bearer ` + process.env.API_TOKEN;
-  
+
   before('make knex instance', () => {
     db = knex({
       client: 'pg',
@@ -19,9 +19,8 @@ describe('Folders Endpoints', function() {
 
   after('disconnect from db', () => db.destroy())
 
-  before('clean the table', () => db('folders').truncate())
-
-  afterEach('cleanup', () => db('folders').truncate())
+  before('clean the table', () => db.raw('TRUNCATE folders, notes CASCADE'))
+  afterEach('cleanup', () => db.rawdb.raw('TRUNCATE folders, notes CASCADE'))
 
   describe(`GET /folders`, () => {
     context(`Given no folders`, () => {
