@@ -3,6 +3,7 @@ CREATE TABLE notes (
   title TEXT NOT NULL,
   modified TIMESTAMPTZ NOT NULL DEFAULT now(),
   content TEXT
-  folderid INTEGER
-    REFERENCES folders(folderid) ON DELETE CASCADE NOT NULL;
 );
+
+--   folderid INTEGER
+    -- REFERENCES folders(folderid) ON DELETE CASCADE NOT NULL;

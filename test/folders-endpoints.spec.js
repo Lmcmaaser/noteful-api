@@ -26,7 +26,7 @@ describe('Folders Endpoints', function() {
     context(`Given no folders`, () => {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
-          .get('/folders')
+          .get('/api/folders')
           .set('Authorization', token)
           .expect(200, [])
       })
