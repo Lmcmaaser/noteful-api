@@ -35,12 +35,14 @@ describe('Notes Endpoints', function() {
       const testNotes = makeNotesArray()
 
       beforeEach('insert notes', () => {
+        const testNotes = makeNotesArray()
         return db
           .into('notes')
           .insert(testNotes)
       })
 
       it('responds with 200 and all of the notes', () => {
+        const testNotes = makeNotesArray()
         return supertest(app)
           .get('/api/notes')
           .set('Authorization', token)
@@ -49,14 +51,14 @@ describe('Notes Endpoints', function() {
     })
   })
 
-  describe(`GET /notes/:notes_id`, () => {
+  describe(`GET /api/notes/:notes_id`, () => {
     context(`Given no notes`, () => {
       it(`responds with 404`, () => {
-        const noteId = 123456
+        const noteId = 1
         return supertest(app)
-          .get(`/notes/${noteId}`)
+          .get(`/api/notes/${noteId}`)
           .set('Authorization', token)
-          .expect(404, { error: { message: `Note doesn't exist` } })
+          .expect(404, { error: { message: `Note does not exist.` } })
         })
     })
 
@@ -70,10 +72,10 @@ describe('Notes Endpoints', function() {
       })
 
       it('responds with 200 and the specified note', () => {
-        const noteId = 2
-        const expectedNote = testNotes[noteId - 1]
+        const noteid = 2
+        const expectedNote = testNotes[noteid - 1]
         return supertest(app)
-          .get(`/notes/${noteId}`)
+          .get(`/api/notes/${noteid}`)
           .set('Authorization', token)
           .expect(200, expectedNote)
       })

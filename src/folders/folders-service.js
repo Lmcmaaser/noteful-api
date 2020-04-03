@@ -23,7 +23,7 @@ const FoldersService = {
       .first()
   },
 
-  deleteNote(knex, folderid) {
+  deleteFolder(knex, folderid) {
     return knex('folders')
       .where({ folderid })
       .delete()

@@ -55,14 +55,12 @@ notesRouter
 notesRouter
   .route('/:note_id')
   .all((req, res, next) => {
-    // const { id } = req.params
     NotesService.getById(
       req.app.get('db'),
       req.params.note_id
     )
       .then(note => {
         if (!note) {
-          logger.error(`Note with id ${note_id} not found.`)
           return res.status(404).json({
             error: { message: `Note does not exist.` }
           })

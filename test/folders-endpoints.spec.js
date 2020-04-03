@@ -51,14 +51,14 @@ describe('Folders Endpoints', function() {
     })
   })
 
-  describe(`GET /folders/:folders_id`, () => {
+  describe(`GET /api/folders/:folders_id`, () => {
     context(`Given no folders`, () => {
       it(`responds with 404`, () => {
-        const folderId = 123456
+        const folderid = 1
         return supertest(app)
-          .get(`/api/folders/${folderId}`)
+          .get(`/api/folders/${folderid}`)
           .set('Authorization', token)
-          .expect(404, { error: { message: `folder doesn't exist` } })
+          .expect(404, { error: { message: `Folder does not exist.` } })
         })
     })
 
@@ -72,10 +72,10 @@ describe('Folders Endpoints', function() {
       })
 
       it('responds with 200 and the specified folder', () => {
-        const folderId = 2
-        const expectedFolder = testFolders[folderId - 1]
+        const folderid = 2
+        const expectedFolder = testFolders[folderid - 1]
         return supertest(app)
-          .get(`/api/folders/${folderId}`)
+          .get(`/api/folders/${folderid}`)
           .set('Authorization', token)
           .expect(200, expectedFolder)
       })
