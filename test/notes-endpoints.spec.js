@@ -26,7 +26,7 @@ describe('Notes Endpoints', function() {
     context(`Given no notes`, () => {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
-          .get('/notes')
+          .get('/api/notes')
           .set('Authorization', token)
           .expect(200, [])
       })
@@ -42,7 +42,7 @@ describe('Notes Endpoints', function() {
 
       it('responds with 200 and all of the notes', () => {
         return supertest(app)
-          .get('/notes')
+          .get('/api/notes')
           .set('Authorization', token)
           .expect(200, testNotes)
       })

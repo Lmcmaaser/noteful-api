@@ -20,7 +20,7 @@ describe('Folders Endpoints', function() {
   after('disconnect from db', () => db.destroy())
 
   before('clean the table', () => db.raw('TRUNCATE folders, notes CASCADE'))
-  afterEach('cleanup', () => db.rawdb.raw('TRUNCATE folders, notes CASCADE'))
+  afterEach('cleanup', () => db.raw('TRUNCATE folders, notes CASCADE'))
 
   describe(`GET /folders`, () => {
     context(`Given no folders`, () => {
@@ -32,17 +32,19 @@ describe('Folders Endpoints', function() {
       })
     })
     context('Given there are folders in the database', () => {
-      const testFolders = makeFoldersArray()
+      const testFolders = makeFoldersArray();
 
       beforeEach('insert folders', () => {
+        const testFolders = makeFoldersArray();
         return db
           .into('folders')
-          .insert(testfolders)
+          .insert(testFolders)
       })
 
       it('responds with 200 and all of the folders', () => {
+        const testFolders = makeFoldersArray();
         return supertest(app)
-          .get('/folders')
+          .get('/api/folders')
           .set('Authorization', token)
           .expect(200, testFolders)
       })
@@ -54,7 +56,7 @@ describe('Folders Endpoints', function() {
       it(`responds with 404`, () => {
         const folderId = 123456
         return supertest(app)
-          .get(`/folders/${folderId}`)
+          .get(`/api/folders/${folderId}`)
           .set('Authorization', token)
           .expect(404, { error: { message: `folder doesn't exist` } })
         })
@@ -73,7 +75,7 @@ describe('Folders Endpoints', function() {
         const folderId = 2
         const expectedFolder = testFolders[folderId - 1]
         return supertest(app)
-          .get(`/folders/${folderId}`)
+          .get(`/api/folders/${folderId}`)
           .set('Authorization', token)
           .expect(200, expectedFolder)
       })

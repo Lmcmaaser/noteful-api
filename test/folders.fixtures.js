@@ -5,15 +5,18 @@ function makeFoldersArray() {
   return [
     {
       folderid: 1,
-      title: "Important"
+      title: "Important",
+      count: 0
     },
     {
-      folderid: "2",
-      title: "Super"
+      folderid: 2,
+      title: "Super",
+      count: 0
     },
     {
-      folderid: "3",
-      title: "Spangley"
+      folderid: 3,
+      title: "Spangley",
+      count: 0
     },
   ]
 }
