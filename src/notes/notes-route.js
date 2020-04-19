@@ -38,7 +38,8 @@ notesRouter
 
     newNote.title = title;
     newNote.content = content;
-    newNote.folderid = folderid
+    newNote.folderid = folderid;
+    console.log(newNote);
     NotesService.insertNote(
       req.app.get('db'),
       newNote
@@ -53,11 +54,11 @@ notesRouter
   })
 
 notesRouter
-  .route('/:note_id')
+  .route('/:noteId')
   .all((req, res, next) => {
     NotesService.getById(
       req.app.get('db'),
-      req.params.note_id
+      req.params.noteId
     )
       .then(note => {
         if (!note) {
@@ -76,7 +77,7 @@ notesRouter
   .delete((req, res, next) => {
     NotesService.deleteNote(
       req.app.get('db'),
-      req.params.note_id //or const { id } = req.params?
+      req.params.noteId //or const { id } = req.params?
     )
       .then(numRowsAffected => {
         res.status(204).end()
@@ -97,7 +98,7 @@ notesRouter
 
     NotesService.updateNote(
       req.app.get('db'),
-      req.params.note_id,
+      req.params.noteId,
       noteToUpdate
     )
       .then(numRowsAffected => {
