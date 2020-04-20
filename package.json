@@ -1,6 +1,9 @@
 {
   "name": "noteful-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.13.x"
+  },
   "description": "",
   "main": "src/server.js",
   "scripts": {
